@@ -1,0 +1,37 @@
+version: '3.6'
+
+services:
+  db_dev:
+    image: mongo:3.6.22
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: dev
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - '27017:27017'
+
+  api_dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    command: "yarn run start:dev"
+    depends_on:
+      - db_dev
+    entrypoint: ./docker-entrypoint.sh
+    environment:
+      - APP_ENV=development
+      - NODE_ENV=development
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+
+volumes:
+  mongo_data:
+  node_modules:
