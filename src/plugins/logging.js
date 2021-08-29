@@ -12,8 +12,6 @@ module.exports = {
         : [], // Protect sensitive data
     logPayload: process.env.NODE_ENV !== 'production',
     logQueryParams: true,
-    logRequestStart: true,
-    logRequestComplete: true,
     serializers: {
       req: (req) => ({
         url: `${req.method} ${req.url}`,
