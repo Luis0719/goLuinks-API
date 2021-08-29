@@ -14,6 +14,7 @@ const connect = (logger) => {
 const models = {
   Action: require('./models/Action'),
   ActionGroup: require('./models/ActionGroup'),
+  Link: require('./models/Link'),
   Role: require('./models/Role'),
   User: require('./models/User'),
 };

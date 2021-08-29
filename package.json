@@ -34,7 +34,6 @@
     "dayjs": "^1.10.4",
     "hapi-auth-bearer-token": "^6.1.6",
     "hapi-pino": "^8.3.0",
-    "hapi-swagger": "^13.0.2",
     "jiggler": "^1.0.1",
     "joi": "^17.4.0",
     "lodash": "^4.17.20",
