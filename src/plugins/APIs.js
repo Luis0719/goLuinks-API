@@ -1,4 +1,4 @@
-const services = ['auth', 'users', 'roles'];
+const services = ['auth', 'users', 'roles', 'links'];
 
 module.exports = () => {
   const buildServicePlugin = (service) => ({
