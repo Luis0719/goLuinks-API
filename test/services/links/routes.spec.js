@@ -4,6 +4,7 @@ const sinon = require('sinon');
 
 const methods = require('../../../src/services/links/methods');
 const { db, utils, testServer } = require('../../testCommon');
+const factories = require('../../testCommon/factories');
 
 const { initDatabase } = db;
 
@@ -19,12 +20,16 @@ describe('#links routes', function () {
     authorizedHeaders = utils.buildAuthorizedJwtHeaders(user.id);
   });
 
+  after(async function () {
+    await initDatabase();
+  });
+
   describe('POST /links/create', function () {
     let route;
 
     before(function () {
       route = {
-        url: `/api/links/create`,
+        url: `/links/create`,
         method: 'POST',
       };
     });
@@ -87,6 +92,34 @@ describe('#links routes', function () {
         const res = await serverInject(route, authorizedHeaders, payload);
         expect(res.statusCode).to.equal(400);
         expect(res.result.message).to.equal('A link with this name already exists');
+      });
+    });
+  });
+
+  describe.only('GET /', function () {
+    let route;
+    let testLink;
+
+    before(async function () {
+      route = (name) => ({
+        url: `/${name}`,
+        method: 'GET',
+      });
+
+      // Create test links
+      testLink = await factories.Link.create();
+    });
+
+    describe('logic', function() {
+      it('should fail if name is not found', async function() {
+        const res = await serverInject(route('wrong-name'), {});
+        expect(res.statusCode).to.equal(404);
+      });
+
+      it('should fail if name is not found', async function() {
+        const res = await serverInject(route(testLink.name), {});
+        expect(res.statusCode).to.equal(302);
+        expect(res.headers.location).to.equal(testLink.url);
       });
     });
   });

@@ -3,6 +3,20 @@ const handlers = require('./handlers');
 
 module.exports = () => [
   {
+    method: 'GET',
+    path: '/{name}',
+    handler: handlers.redirect,
+    config: {
+      tags: ['api', 'links'],
+      description: 'Get and redirect to link',
+      validate: {
+        params: Joi.object({
+          name: Joi.string().required(),
+        }),
+      },
+    },
+  },
+  {
     method: 'POST',
     path: '/links/create',
     handler: handlers.store,
