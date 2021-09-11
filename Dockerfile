@@ -4,6 +4,7 @@ COPY . /usr/src/app
 ENTRYPOINT ["./docker-entrypoint.sh"]
 
 FROM builder as dev
+RUN ["apt-get", "update"]
 RUN ["yarn", "install"]
 CMD [ "yarn", "run", "start:dev" ]
 EXPOSE 3000
