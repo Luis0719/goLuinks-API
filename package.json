@@ -2,7 +2,8 @@
   "name": "hapi-node-jwt",
   "version": "1.0.0",
   "engines": {
-    "node": "15.8.0"
+    "node": "15.x",
+    "npm": "7.x"
   },
   "description": "API service for goLuinks",
   "main": "src/app.js",
