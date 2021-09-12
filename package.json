@@ -1,8 +1,11 @@
 {
   "name": "hapi-node-jwt",
   "version": "1.0.0",
-  "description": "Template for Hapi APIs",
-  "main": "src/index.js",
+  "engines": {
+    "node": "15.8.0"
+  },
+  "description": "API service for goLuinks",
+  "main": "src/app.js",
   "scripts": {
     "start:dev": "nodemon --legacy-watch src/app.js",
     "start:prod": "node src/app.js",
