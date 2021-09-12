@@ -42,7 +42,7 @@ function helptext {
   info "Usage: ./go <command>"
   echo ""
   info "Available commands are:"
-  echo "    init                    Setup the project on your development machine."
+  echo "    build                    Setup the project on your development machine."
   echo "    start                   Start the server and it's dependencies."
   echo "    stop                    Shut down the server and it's dependencies."
   echo "    nuke                    Remove all local resources related to this project."
@@ -65,7 +65,7 @@ function lint {
   run_yarn lint
 }
 
-function init {
+function build {
   setup_hooks
   ${DC} build
 }
@@ -150,7 +150,7 @@ EOS
 case "$1" in
     help) helptext
     ;;
-    init) init
+    build) build
     ;;
     start) start
     ;;
