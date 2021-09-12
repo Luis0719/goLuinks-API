@@ -8,9 +8,10 @@
   "description": "API service for goLuinks",
   "main": "src/app.js",
   "scripts": {
-    "start:dev": "nodemon --legacy-watch src/app.js",
-    "start": "node src/app.js",
-    "test": "mocha",
+    "start:dev": "npm run preInstall && nodemon --legacy-watch src/app.js",
+    "start": "npm run preInstall && node src/app.js",
+    "preInstall": "node ./scripts/preinstall.js",
+    "test": "npm run preInstall && mocha",
     "make-pretty": "prettier --write '{src,test}/**/*.js'",
     "seed": "node scripts/dev/seedDB/index.js",
     "unseed": ""
@@ -40,6 +41,7 @@
     "bcrypt": "5.0.0",
     "bluebird": "^3.7.2",
     "dayjs": "^1.10.4",
+    "dotenv": "^10.0.0",
     "hapi-auth-bearer-token": "^6.1.6",
     "hapi-pino": "^8.3.0",
     "hapi-react-views": "^10.1.3",
