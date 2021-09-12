@@ -11,7 +11,7 @@
     "start:dev": "npm run preInstall && nodemon --legacy-watch src/app.js",
     "start": "npm run preInstall && node src/app.js",
     "preInstall": "node ./scripts/preinstall.js",
-    "test": "mocha",
+    "test": "npm run preInstall && mocha",
     "make-pretty": "prettier --write '{src,test}/**/*.js'",
     "seed": "node scripts/dev/seedDB/index.js",
     "unseed": ""
