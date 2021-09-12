@@ -16,14 +16,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: dev
     command: 'yarn run start:dev'
     depends_on:
       - db_dev
-    entrypoint: ./docker-entrypoint.sh
     environment:
       - APP_ENV=development
       - NODE_ENV=development
+    env_file:
+      - ./config/development.env
     ports:
       - '3000:3000'
     stdin_open: true
