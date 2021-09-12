@@ -4,6 +4,15 @@ const handlers = require('./handlers');
 module.exports = () => [
   {
     method: 'GET',
+    path: '/links',
+    handler: handlers.getLinks,
+    config: {
+      tags: ['api', 'links'],
+      description: 'Get links',
+    },
+  },
+  {
+    method: 'GET',
     path: '/{name}',
     handler: handlers.redirect,
     config: {
