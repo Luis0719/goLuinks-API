@@ -95,6 +95,32 @@ describe('#links routes', function () {
     });
   });
 
+  describe('GET /links', function () {
+    let route;
+    let testLink;
+
+    before(async function () {
+      route = {
+        url: `/links`,
+        method: 'GET',
+      };
+
+      // Create test links
+      testLink = await factories.Link.create();
+    });
+
+    describe('logic', function() {
+      it('should get list of links', async function() {
+        const res = await serverInject(route);
+        expect(res.statusCode).to.equal(200);
+
+        const resPayload = JSON.parse(res.payload);
+        expect(resPayload.total).to.equal(1);
+        expect(resPayload.items[0].name).to.equal(testLink.name);
+      });
+    });
+  });
+
   describe('GET /', function () {
     let route;
     let testLink;
