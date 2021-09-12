@@ -54,15 +54,15 @@ function helptext {
 
 function pre-commit {
   info "Pre commit"
-  # ${DC} run client yarn run lint
+  # ${DC} run client npm run lint
 }
 
 function test {
-  run_yarn test
+  run_npm test
 }
 
 function lint {
-  run_yarn lint
+  run_npm lint
 }
 
 function build {
@@ -71,7 +71,7 @@ function build {
 }
 
 function seed {
-  run_yarn seed
+  run_npm seed
 }
 
 function create-model {
@@ -88,16 +88,16 @@ function exec {
   ${DC} run ${DEV_IMAGE} $@
 }
 
-function run_yarn {
-  exec yarn $@
+function run_npm {
+  exec npm $@
 }
 
 function install {
-  run_yarn install
+  run_npm install
 }
 
 function prettier {
-  run_yarn make-pretty
+  run_npm make-pretty
 }
 
 function stop {
@@ -156,7 +156,7 @@ case "$1" in
     ;;
     exec) exec ${@:2} # Send all but first arg
     ;;
-    yarn) run_yarn ${@:2}
+    npm) run_npm ${@:2}
     ;;
     install) install
     ;;

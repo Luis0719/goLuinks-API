@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { db, testServer } = require('../testCommon');
+const { db } = require('../testCommon');
 
 const { jwtBaseStrategy } = require('../../src/authentication/jwt/base');
 const anyAuthenticated = require('../../src/authentication/jwt/_anyAuthenticated')
@@ -33,16 +33,14 @@ const buildRequest = (path, method = 'get') => ({
 const userIdAsString = (user) => user._id.toString();
 
 describe('#jwt', function () {
-  let server;
   let admin_user;
   let guest_user;
 
   before(async function () {
-    server = testServer.getTestServer();
     await initDatabase();
 
     admin_user = await prefabs.User.createAdmin();
-    guest_user = await prefabs.User.createGuestWithActions(['/public'])
+    guest_user = await prefabs.User.createGuestWithActions(['/public']);
   });
 
   describe('#jwtBase', function () {
