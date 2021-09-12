@@ -3,15 +3,6 @@
 const Hapi = require('@hapi/hapi');
 const { joiValidator } = require('./middleware');
 
-const HapiReactViews = require('hapi-react-views');
-require('@babel/register')({
-    presets: ['@babel/preset-react', '@babel/preset-env'],
-    extensions: [".jsx"],
-    only: [
-      /views/
-    ],
-});
-
 const { server: config, cors } = require('config');
 config.routes = {
   cors,
@@ -35,15 +26,6 @@ const configServer = async () => {
 
   // Loan generic routes not associated with any service
   server.route(routes);
-
-  server.views({
-    engines: {
-        jsx: HapiReactViews
-    },
-    compileOptions: {}, // optional
-    relativeTo: __dirname,
-    path: 'views'
-});
 
   return server;
 };

@@ -18,7 +18,7 @@ module.exports = () => [
   },
   {
     method: 'POST',
-    path: '/links/create',
+    path: '/api/links/create',
     handler: handlers.store,
     config: {
       tags: ['api', 'links'],

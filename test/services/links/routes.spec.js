@@ -29,7 +29,7 @@ describe('#links routes', function () {
 
     before(function () {
       route = {
-        url: `/links/create`,
+        url: `/api/links/create`,
         method: 'POST',
       };
     });
@@ -58,7 +58,7 @@ describe('#links routes', function () {
       });
 
       it('should pass with all required attrs provided', async function() {
-        const storeLinkStub = sinon.stub(methods, 'store').callsFake(async () => ({}));
+        const storeLinkStub = sinon.stub(methods, 'store').callsFake(async () => ({link: 'mylink.com'}));
         const payload = {
           name: 'my-link',
           url: 'some+test+url.com',
@@ -79,7 +79,6 @@ describe('#links routes', function () {
 
         const res = await serverInject(route, authorizedHeaders, payload);
         expect(res.statusCode).to.equal(200);
-        console.log(res.result);
       });
 
       it('should not duplicate names', async function() {
@@ -96,7 +95,7 @@ describe('#links routes', function () {
     });
   });
 
-  describe.only('GET /', function () {
+  describe('GET /', function () {
     let route;
     let testLink;
 
@@ -116,7 +115,7 @@ describe('#links routes', function () {
         expect(res.statusCode).to.equal(404);
       });
 
-      it('should fail if name is not found', async function() {
+      it('should redirect if name exists', async function() {
         const res = await serverInject(route(testLink.name), {});
         expect(res.statusCode).to.equal(302);
         expect(res.headers.location).to.equal(testLink.url);

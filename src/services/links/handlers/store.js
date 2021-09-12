@@ -7,7 +7,6 @@ const { representAs } = helpers.response;
 
 module.exports = async ({ logger, payload }) => {
   const [error, res] = await to(methods.store(payload));
-
   if (error) {
     logger.error(error);
     throw internal();

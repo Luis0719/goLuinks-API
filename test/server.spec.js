@@ -9,13 +9,13 @@ describe('#server', function () {
   });
 
   describe('GET /', function () {
-    it('responds with 200', async function () {
+    it('redirects to admin page', async function () {
       const res = await server.inject({
         method: 'get',
         url: '/',
       });
 
-      expect(res.statusCode).to.equal(200);
+      expect(res.statusCode).to.equal(302);
     });
   });
 });

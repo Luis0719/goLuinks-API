@@ -1,6 +1,6 @@
 const server = {
-  port: process.env.SERVER_PORT || 3000,
-  host: process.env.SERVER_HOST || 'localhost',
+  port: process.env.PORT || 3000,
+  host: process.env.HOST || 'localhost',
   debug: { request: ['error'] },
 }
 
@@ -40,10 +40,13 @@ const bcrypt = {
   saltRounds: 10
 }
 
+const goLinksAdminUrl = process.env.GO_LINKS_ADMIN_URL;
+
 module.exports = {
   apiService,
   bcrypt,
   cors,
+  goLinksAdminUrl,
   jwt,
   server,
 }

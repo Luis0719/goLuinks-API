@@ -20,7 +20,7 @@ describe('#users routes', function () {
     authorizedHeaders = utils.buildAuthorizedJwtHeaders(admin.id);
   });
 
-  describe('DELETE /users', async function () {
+  describe('DELETE /users', function () {
     let route;
 
     before(function () {
