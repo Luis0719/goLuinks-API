@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const handlers = require('./handlers');
+const { overrideSuccessStatusCode } = require('common').helpers.response;
 
 module.exports = () => [
   {
@@ -28,7 +29,7 @@ module.exports = () => [
   {
     method: 'POST',
     path: '/api/links/create',
-    handler: handlers.store,
+    handler: overrideSuccessStatusCode(handlers.store, 201),
     config: {
       tags: ['api', 'links'],
       description: 'Create a new go link',

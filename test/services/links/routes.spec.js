@@ -58,14 +58,14 @@ describe('#links routes', function () {
       });
 
       it('should pass with all required attrs provided', async function() {
-        const storeLinkStub = sinon.stub(methods, 'store').callsFake(async () => ({link: 'mylink.com'}));
         const payload = {
           name: 'my-link',
           url: 'some+test+url.com',
         };
+        const storeLinkStub = sinon.stub(methods, 'store').callsFake(async () => ({link: {}}));
         const res = await serverInject(route, authorizedHeaders, payload);
 
-        expect(res.statusCode).to.be.equal(200);
+        expect(res.statusCode).to.be.equal(201);
         storeLinkStub.restore();
       });
     });
@@ -78,7 +78,9 @@ describe('#links routes', function () {
         }
 
         const res = await serverInject(route, authorizedHeaders, payload);
-        expect(res.statusCode).to.equal(200);
+        expect(res.statusCode).to.equal(201);
+        expect(res.result.name).to.equal(payload.name);
+        expect(res.result.url).to.equal(payload.url);
       });
 
       it('should not duplicate names', async function() {
@@ -126,6 +128,8 @@ describe('#links routes', function () {
     let testLink;
 
     before(async function () {
+      await initDatabase();
+
       route = (name) => ({
         url: `/${name}`,
         method: 'GET',

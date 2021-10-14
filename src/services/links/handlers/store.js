@@ -5,16 +5,16 @@ const methods = require('../methods');
 const { to } = helpers.functionalHelpers;
 const { representAs } = helpers.response;
 
-module.exports = async ({ logger, payload }) => {
-  const [error, res] = await to(methods.store(payload));
+module.exports = async ({ logger, payload }, reply) => {
+  const [error, result] = await to(methods.store(payload));
   if (error) {
     logger.error(error);
     throw internal();
   }
 
-  if (res.error) {
-    return res.error();
+  if (result.error) {
+    return result.error();
   }
 
-  return representAs('link')(res.link);
+  return representAs('link', result.link);
 };

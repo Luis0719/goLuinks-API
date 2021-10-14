@@ -13,5 +13,5 @@ module.exports = async ({ logger, query }) => {
     throw internal();
   }
 
-  return representAsPaginated('user')(users);
+  return representAsPaginated('user', users);
 };
