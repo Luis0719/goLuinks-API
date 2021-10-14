@@ -13,7 +13,7 @@ module.exports = async ({ logger, payload }, reply) => {
   }
 
   if (result.error) {
-    return result.error();
+    throw result.error();
   }
 
   return representAs('link', result.link);

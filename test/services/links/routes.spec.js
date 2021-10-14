@@ -97,6 +97,29 @@ describe('#links routes', function () {
         expect(res.statusCode).to.equal(400);
         expect(res.result.message).to.equal('A link with this name already exists');
       });
+
+      it('should store new link happy path', async function() {
+        const payload = {
+          name: 'my-routine',
+          routine: 'testRoutine',
+        }
+
+        const res = await serverInject(route, authorizedHeaders, payload);
+        expect(res.statusCode).to.equal(201);
+        expect(res.result.name).to.equal(payload.name);
+        expect(res.result.routine).to.equal(payload.routine);
+      });
+
+      it('should raise error if routine is not found', async function() {
+        const payload = {
+          name: 'my-routine',
+          routine: 'missingRoutine',
+        }
+
+        const res = await serverInject(route, authorizedHeaders, payload);
+        expect(res.statusCode).to.equal(400);
+        expect(res.result.message).to.equal('routine missingRoutine not found');
+      });
     });
   });
 
