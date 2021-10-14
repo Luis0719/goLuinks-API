@@ -4,7 +4,10 @@ const sinon = require('sinon');
 
 const methods = require('../../../src/services/links/methods');
 const { db, utils, testServer } = require('../../testCommon');
-const factories = require('../../testCommon/factories');
+const {
+  factories,
+  prefabs,
+} = db;
 
 const { initDatabase } = db;
 
@@ -58,14 +61,14 @@ describe('#links routes', function () {
       });
 
       it('should pass with all required attrs provided', async function() {
-        const storeLinkStub = sinon.stub(methods, 'store').callsFake(async () => ({link: 'mylink.com'}));
         const payload = {
           name: 'my-link',
           url: 'some+test+url.com',
         };
+        const storeLinkStub = sinon.stub(methods, 'store').callsFake(async () => ({link: {}}));
         const res = await serverInject(route, authorizedHeaders, payload);
 
-        expect(res.statusCode).to.be.equal(200);
+        expect(res.statusCode).to.be.equal(201);
         storeLinkStub.restore();
       });
     });
@@ -78,7 +81,9 @@ describe('#links routes', function () {
         }
 
         const res = await serverInject(route, authorizedHeaders, payload);
-        expect(res.statusCode).to.equal(200);
+        expect(res.statusCode).to.equal(201);
+        expect(res.result.name).to.equal(payload.name);
+        expect(res.result.url).to.equal(payload.url);
       });
 
       it('should not duplicate names', async function() {
@@ -124,8 +129,11 @@ describe('#links routes', function () {
   describe('GET /', function () {
     let route;
     let testLink;
+    let testRoutine;
 
     before(async function () {
+      await initDatabase();
+
       route = (name) => ({
         url: `/${name}`,
         method: 'GET',
@@ -133,6 +141,7 @@ describe('#links routes', function () {
 
       // Create test links
       testLink = await factories.Link.create();
+      testRoutine = await prefabs.Link.createRoutine();
     });
 
     describe('logic', function() {
@@ -145,6 +154,12 @@ describe('#links routes', function () {
         const res = await serverInject(route(testLink.name), {});
         expect(res.statusCode).to.equal(302);
         expect(res.headers.location).to.equal(testLink.url);
+      });
+
+      it('should run routine', async function() {
+        const res = await serverInject(route(testRoutine.name), {});
+        expect(res.statusCode).to.equal(302);
+        expect(res.headers.location).to.equal('https://test.com');
       });
     });
   });

@@ -4,8 +4,8 @@ module.exports = [
   {
     method: 'GET',
     path: '/',
-    handler: (request, h) => {
-      return h.redirect(config.goLinksAdminUrl);
+    handler: (request, reply) => {
+      return reply.redirect(config.goLinksAdminUrl);
     },
     config: {
       tags: ['api', 'links'],

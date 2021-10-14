@@ -17,5 +17,5 @@ module.exports = async ({ logger, params, payload }) => {
     throw notFound();
   }
 
-  return representAs('user')(user);
+  return representAs('user', user);
 };

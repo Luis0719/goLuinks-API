@@ -16,5 +16,5 @@ module.exports = async ({ logger, query }) => {
     throw internal();
   }
 
-  return representAsPaginated('role')(roles);
+  return representAsPaginated('role', roles);
 };
