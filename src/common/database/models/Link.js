@@ -10,11 +10,13 @@ const LinkSchema = new Schema(
     },
     url: {
       type: String,
-      required: true,
     },
     owner: {
       type: Schema.Types.ObjectId,
       ref: 'User',
+    },
+    routine: {
+      type: String,
     },
     isPrivate: {
       type: Boolean,
