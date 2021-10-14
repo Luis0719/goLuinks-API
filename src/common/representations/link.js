@@ -4,6 +4,7 @@ module.exports = {
       J.Field('id'),
       J.Field('name'),
       J.Field('url'),
+      J.Field('routine'),
       J.Field('owner'),
       J.Field('isPrivate'),
       J.Field('sharedWith'),
