@@ -13,5 +13,5 @@ module.exports = async ({ logger, params }) => {
     throw internal();
   }
 
-  return representAs('role')(deletedRole);
+  return representAs('role', deletedRole);
 };

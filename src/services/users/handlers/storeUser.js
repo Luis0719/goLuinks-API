@@ -13,5 +13,5 @@ module.exports = async ({ logger, payload }) => {
     throw internal();
   }
 
-  return representAs('user')(user);
+  return representAs('user', user);
 };
