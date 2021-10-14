@@ -34,11 +34,18 @@ module.exports = () => [
       tags: ['api', 'links'],
       description: 'Create a new go link',
       validate: {
-        payload: Joi.object({
-          name: Joi.string().required(),
-          url: Joi.string().required(),
-          isPrivate: Joi.boolean().default(false),
-        }),
+        payload: Joi.alternatives().try(
+          Joi.object({
+            name: Joi.string().required(),
+            url: Joi.string().required(),
+            isPrivate: Joi.boolean().default(false),
+          }),
+          Joi.object({
+            name: Joi.string().required(),
+            routine: Joi.string().required(),
+            isPrivate: Joi.boolean().default(false),
+          }),
+        )
       },
     },
   },
